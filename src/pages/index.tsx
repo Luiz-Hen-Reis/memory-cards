@@ -1,12 +1,16 @@
+import { GridArea, Header } from "@/components";
 import Head from "next/head";
 
 function Index() {
   return (
     <>
       <Head>
-        <title>Novo Projeto</title>
+        <title>Memory Cards</title>
       </Head>
-      <div>Bora Codar?</div>
+      <Header />
+      <main>
+        <GridArea />
+      </main>
     </>
   )
 }
