@@ -1,15 +1,18 @@
-import collection from '@/mockupData';
-import * as Styled from './styles';
+import decks from "@/mockupData";
+import * as Styled from "./styles";
+import GridItem from "../GridItem";
 
 function GridArea() {
   return (
     <Styled.Container>
-        <h1>Minhas coleções</h1>
-        {collection.map(item => (
-          <p>{item.title}</p>
+      <h1>Meus Baralhos</h1>
+      <Styled.GridContainer>
+        {decks.map((deck) => (
+          <GridItem deck={deck} />
         ))}
+      </Styled.GridContainer>
     </Styled.Container>
-  )
+  );
 }
 
-export default GridArea
+export default GridArea;

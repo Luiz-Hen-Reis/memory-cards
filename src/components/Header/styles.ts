@@ -57,6 +57,7 @@ export const RightSide = styled.div`
     
     &:hover {
         background-color: ${theme.colors.columbiaBlue};
+        color: ${theme.colors.ultraViolet};
     }
 
     p {
