@@ -1,3 +1,5 @@
+import { HamburgerBtn } from "./components/Header/styles";
+
 const deck = [
   {
     id: 1,
@@ -88,3 +90,4 @@ export type Card = {
   back: string;
   collection: string;
 };
+

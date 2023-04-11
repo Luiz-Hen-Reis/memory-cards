@@ -1,23 +1,26 @@
-import * as Styled from './styles';
-import { Deck } from '@/mockupData';
-import Link from 'next/link';
+import * as Styled from "./styles";
+import { Deck } from "@/mockupData";
+import Link from "next/link";
 
 type Props = {
-  deck: Deck
-}
+  deck: Deck;
+};
 
 function GridItem({ deck }: Props) {
   return (
     <Styled.Container>
-        <Link href={`/${deck.title}`}>
+      <Link href={`/${deck.title}`}>
         <Styled.DeckTitle>
-        <h1>{deck.title}</h1>
-        <p>0 termos</p>
+          <h1>{deck.title}</h1>
+          <p>0 termos</p>
         </Styled.DeckTitle>
-        <span>{deck.user.name}</span>
-        </Link>
+        <Styled.DeckUser>
+          <img src="https://github.com/Luiz-Hen-Reis.png" alt="" />
+          <span>{deck.user.name}</span>
+        </Styled.DeckUser>
+      </Link>
     </Styled.Container>
-  )
+  );
 }
 
-export default GridItem
+export default GridItem;

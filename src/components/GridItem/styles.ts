@@ -11,15 +11,13 @@ export const Container = styled.article`
     flex-direction: column;
     justify-content: space-between;
     transition: all ease 0.3s;
-    
-    span {
-      margin-bottom: 1.4rem;
-    }
+    box-shadow: ${theme.boxShadow};
 
     &:hover {
       border-bottom: 0.5rem solid ${theme.colors.columbiaBlue};
     }
   `}
+
 `;
 
 export const DeckTitle = styled.header`
@@ -34,5 +32,21 @@ export const DeckTitle = styled.header`
     p {
       color: ${theme.colors.columbiaBlue};
     }
+  `}
+`;
+
+export const DeckUser = styled.header`
+  ${({ theme }) => css`
+    display: flex;
+    align-items: center;  
+
+  img {
+    width: 2rem;
+    height: 2rem;
+    border-radius: 50%;
+    margin: 0 0.5rem 0 0;
+    box-shadow: ${theme.boxShadow};
+  }
+    
   `}
 `;

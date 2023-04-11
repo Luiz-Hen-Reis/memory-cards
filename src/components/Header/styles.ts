@@ -8,6 +8,7 @@ export const Container = styled.header`
     align-items: center;
     border-bottom: 1px solid ${theme.colors.columbiaBlue};
     padding: 0 1rem;
+    box-shadow: ${theme.boxShadow};
   `}
 `;
 
@@ -22,6 +23,10 @@ export const HamburgerBtn = styled.div`
     border-radius: 50%;
     cursor: pointer;
     transition: all ease 0.3s;
+
+    @media ${theme.media.large} {
+      display: none;
+    }
 
     &:hover {
       background-color: ${theme.colors.columbiaBlue};
@@ -54,15 +59,16 @@ export const RightSide = styled.div`
     font-size: ${theme.font.sizes.small};
     border-radius: ${theme.borderRadius};
     cursor: pointer;
-    
+    box-shadow: ${theme.boxShadow};
+
     &:hover {
-        background-color: ${theme.colors.columbiaBlue};
-        color: ${theme.colors.ultraViolet};
+      background-color: ${theme.colors.columbiaBlue};
+      color: ${theme.colors.ultraViolet};
     }
 
     p {
-        padding: 0 2rem;
-        z-index: 1;
+      padding: 0 2rem;
+      z-index: 1;
     }
   `}
 `;
@@ -72,7 +78,10 @@ export const PlusBtn = styled(HamburgerBtn)`
     background-color: transparent;
     width: 6rem;
     height: 6rem;
-    
+
+    @media ${theme.media.large} {
+      display: flex;
+    }
 
     span {
       height: 0.1rem;
@@ -85,5 +94,76 @@ export const PlusBtn = styled(HamburgerBtn)`
         transform: rotate(90deg);
       }
     }
+  `}
+`;
+
+export const UserInfo = styled.div`
+  ${({ theme }) => css`
+    display: none;
+    order: 2;
+
+    img {
+      width: 5rem;
+      height: 5rem;
+      border-radius: 50%;
+      margin: 0 0.5rem;
+    }
+
+    p {
+      font-size: 1.6rem;
+    }
+
+    @media ${theme.media.large} {
+      display: flex;
+      align-items: center;
+    }
+  `}
+`;
+
+export const MyDeck = styled.div`
+  ${({ theme }) => css`
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    gap: 1rem;
+    background-color: ${theme.colors.ultraViolet};
+    font-size: ${theme.font.sizes.small};
+    border-radius: ${theme.borderRadius};
+    cursor: pointer;
+    box-shadow: ${theme.boxShadow};
+
+    &:hover {
+      background-color: ${theme.colors.columbiaBlue};
+      color: ${theme.colors.ultraViolet};
+    }
+
+    p {
+      padding: 0 2rem;
+      z-index: 1;
+    }
+  `}
+`;
+
+export const MyDeckBtn = styled(HamburgerBtn)`
+  ${({ theme }) => css`
+    @media ${theme.media.large} {
+      display: flex;
+      transition: all ease 0.3s;
+
+      span {
+        &:nth-child(1) {
+          width: 1rem;
+        }
+
+        &:nth-child(3) {
+          width: 2rem;
+        }
+
+        &:nth-child(2) {
+          width: 3rem;
+        }
+      }
+    }
+
   `}
 `;

@@ -38,5 +38,6 @@ export const theme = {
     huge: "5.6rem",
     xhuge: "6.4rem",
   },
-  borderRadius: '1rem'
+  borderRadius: '1rem',
+  boxShadow: 'rgba(0, 0, 0, 0.35) 0px 5px 15px'
 } as const;
