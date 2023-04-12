@@ -9,7 +9,7 @@ type Props = {
 function GridItem({ deck }: Props) {
   return (
     <Styled.Container>
-      <Link href={`/${deck.title}`}>
+      <Link href={`/deck/${deck.id}`}>
         <Styled.DeckTitle>
           <h1>{deck.title}</h1>
           <p>0 termos</p>
