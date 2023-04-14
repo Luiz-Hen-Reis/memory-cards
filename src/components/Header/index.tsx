@@ -4,11 +4,15 @@ import Modal from "../Modal";
 import { useState } from "react";
 
 function Header() {
-  const [openModal, setOpenModal] = useState(false);
+  const [modalIsOpen, setModalIsOpen] = useState(false);
+
+  function closeModal() {
+    setModalIsOpen(false);
+  }
 
   return (
     <Styled.Container>
-      <Modal openModal={openModal} />
+      <Modal modalIsOpen={modalIsOpen} closeModal={closeModal} />
       <Styled.UserInfo>
         <Link href={"/"}>
           <Styled.MyDeck>
@@ -23,7 +27,7 @@ function Header() {
         <img src="https://github.com/Luiz-Hen-Reis.png" alt="" />
         <p>fulano de tal</p>
       </Styled.UserInfo>
-      <Styled.HamburgerBtn onClick={() => setOpenModal(true)}>
+      <Styled.HamburgerBtn onClick={() => setModalIsOpen(true)}>
         <span></span>
         <span></span>
         <span></span>
