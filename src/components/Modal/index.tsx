@@ -1,3 +1,4 @@
+import Link from "next/link";
 import * as Styled from "./styles";
 
 type Props = {
@@ -19,8 +20,10 @@ function Modal({ modalIsOpen, closeModal }: Props) {
           <img src="https://github.com/Luiz-Hen-Reis.png" alt="" />
           <p>fulano de tal</p>
         </Styled.UserInfo>
-        meus baralhos
-        logout
+        <Link href={"/"} onClick={closeModal}>
+          Meus Baralhos
+        </Link>
+        <button>Sair</button>
       </Styled.ModalBody>
     </Styled.Container>
   );

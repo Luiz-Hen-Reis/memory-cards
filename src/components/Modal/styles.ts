@@ -40,8 +40,29 @@ export const CloseBtn = styled(HamburgerBtn)`
 
 export const ModalBody = styled.div`
   ${({ theme }) => css`
-    p {
-      padding: 0px;
+    padding: 0 ${theme.spacings.small};
+
+    a {
+      display: block;
+      margin: ${theme.spacings.medium} 0;
+      background-color: ${theme.colors.ultraViolet};
+      padding: ${theme.spacings.small} ${theme.spacings.huge};
+      font-size: ${theme.font.sizes.small};
+      border-radius: ${theme.borderRadius};
+      text-align: center;
+      cursor: pointer;
+    }
+
+    button {
+      all: unset;
+      display: block;
+      margin: ${theme.spacings.xhuge} auto;
+      background-color: ${theme.colors.ultraViolet};
+      padding: ${theme.spacings.small} ${theme.spacings.huge};
+      font-size: ${theme.font.sizes.small};
+      border-radius: ${theme.borderRadius};
+      text-align: center;
+      cursor: pointer;
     }
   `}
 `;
@@ -53,12 +74,13 @@ export const UserInfo = styled(IUserInfo)`
     align-items: center;
 
     img {
-        width: 6rem;
-        height: 6rem;
+      width: 6rem;
+      height: 6rem;
     }
-    
+
     p {
-        font-size: ${theme.font.sizes.medium};
+      font-size: ${theme.font.sizes.medium};
+      margin-left: 5px;
     }
   `}
 `;

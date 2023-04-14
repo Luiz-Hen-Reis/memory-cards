@@ -1,5 +1,4 @@
 import Head from "next/head";
-import { Header } from "@/components";
 
 function NewDeck() {
   return (
@@ -7,7 +6,6 @@ function NewDeck() {
       <Head>
         <title>Memory Cards</title>
       </Head>
-      <Header />
       <main></main>
     </>
   );

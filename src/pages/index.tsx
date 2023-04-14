@@ -1,4 +1,4 @@
-import { GridArea, Header } from "@/components";
+import { GridArea } from "@/components";
 import Head from "next/head";
 
 function Index() {
@@ -7,7 +7,6 @@ function Index() {
       <Head>
         <title>Memory Cards</title>
       </Head>
-      <Header />
       <main>
         <GridArea />
       </main>
