@@ -8,7 +8,7 @@ function GridArea() {
       <h1>Meus Baralhos</h1>
       <Styled.GridContainer>
         {decks.map((deck) => (
-          <GridItem deck={deck} />
+          <GridItem deck={deck} key={deck.id} />
         ))}
       </Styled.GridContainer>
     </Styled.Container>

@@ -64,8 +64,8 @@ export const CardBack = styled.div`
   `}
 `;
 
-export const BtnContainer = styled.div`
-  ${({ theme }) => css`
+export const BtnContainer = styled.div<{ disabled: boolean }>`
+  ${({ theme, disabled }) => css`
     display: flex;
     justify-content: center;
     gap: 1rem;
@@ -79,7 +79,7 @@ export const BtnContainer = styled.div`
       cursor: pointer;
 
       &:nth-child(2) {
-        display: none;
+        opacity: ${disabled ? ".5" : "1"};
       }
     }
   `}

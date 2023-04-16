@@ -16,6 +16,18 @@ const deck = [
         back: "this is the back",
         collection: "Title",
       },
+      {
+        id: 2,
+        front: "this is the front",
+        back: "this is the back",
+        collection: "Title",
+      },
+      {
+        id: 3,
+        front: "this is the front",
+        back: "this is the back",
+        collection: "Title",
+      },
     ],
   },
   {
@@ -29,6 +41,18 @@ const deck = [
     cards: [
       {
         id: 1,
+        front: "this is the front",
+        back: "this is the back",
+        collection: "Title",
+      },
+        {
+        id: 2,
+        front: "this is the front",
+        back: "this is the back",
+        collection: "Title",
+      },
+      {
+        id: 3,
         front: "this is the front",
         back: "this is the back",
         collection: "Title",
@@ -50,6 +74,18 @@ const deck = [
         back: "this is the back",
         collection: "Title",
       },
+        {
+        id: 2,
+        front: "this is the front",
+        back: "this is the back",
+        collection: "Title",
+      },
+      {
+        id: 3,
+        front: "this is the front",
+        back: "this is the back",
+        collection: "Title",
+      },
     ],
   },
   {
@@ -63,6 +99,18 @@ const deck = [
     cards: [
       {
         id: 1,
+        front: "this is the front",
+        back: "this is the back",
+        collection: "Title",
+      },
+        {
+        id: 2,
+        front: "this is the front",
+        back: "this is the back",
+        collection: "Title",
+      },
+      {
+        id: 3,
         front: "this is the front",
         back: "this is the back",
         collection: "Title",
