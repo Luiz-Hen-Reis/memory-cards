@@ -1,5 +1,6 @@
 import Link from "next/link";
 import * as Styled from "./styles";
+import { useRouter } from "next/router";
 
 type Props = {
   modalIsOpen: boolean;
@@ -7,6 +8,8 @@ type Props = {
 };
 
 function Modal({ modalIsOpen, closeModal }: Props) {
+  const router = useRouter();
+
   return (
     <Styled.Container modalIsOpen={modalIsOpen}>
       <Styled.Header>
@@ -23,7 +26,7 @@ function Modal({ modalIsOpen, closeModal }: Props) {
         <Link href={"/"} onClick={closeModal}>
           Meus Baralhos
         </Link>
-        <button>Sair</button>
+        <button onClick={() => router.push('/auth/login')}>Sair</button>
       </Styled.ModalBody>
     </Styled.Container>
   );

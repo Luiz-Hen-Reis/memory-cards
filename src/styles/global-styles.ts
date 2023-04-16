@@ -20,7 +20,7 @@ export const GlobalStyles = createGlobalStyle`
         font-family: ${theme.font.family.default};
         color: ${theme.colors.mintCream};
     }
-    a {
+    a, button {
     all: unset;
   }
 `;

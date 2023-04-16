@@ -97,10 +97,11 @@ export const PlusBtn = styled(HamburgerBtn)`
   `}
 `;
 
-export const UserInfo = styled.div`
+export const UserInfo = styled.nav`
   ${({ theme }) => css`
     display: none;
     order: 2;
+    cursor: pointer;
 
     img {
       width: 5rem;
@@ -111,6 +112,15 @@ export const UserInfo = styled.div`
 
     p {
       font-size: 1.6rem;
+      margin-right: 5px;
+    }
+
+    button {
+      font-size: ${theme.font.sizes.small};
+      background-color: ${theme.colors.ultraViolet};
+      padding: 0 1rem;
+      border-radius: ${theme.borderRadius};
+      cursor: pointer;
     }
 
     @media ${theme.media.large} {
@@ -129,8 +139,8 @@ export const MyDeck = styled.div`
     background-color: ${theme.colors.ultraViolet};
     font-size: ${theme.font.sizes.small};
     border-radius: ${theme.borderRadius};
-    cursor: pointer;
     box-shadow: ${theme.boxShadow};
+    cursor: pointer;
 
     &:hover {
       background-color: ${theme.colors.columbiaBlue};
@@ -164,6 +174,5 @@ export const MyDeckBtn = styled(HamburgerBtn)`
         }
       }
     }
-
   `}
 `;

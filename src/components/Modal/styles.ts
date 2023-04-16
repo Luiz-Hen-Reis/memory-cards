@@ -5,7 +5,7 @@ import {
   UserInfo as IUserInfo,
 } from "../Header/styles";
 
-export const Container = styled.div<{ modalIsOpen: boolean }>`
+export const Container = styled.nav<{ modalIsOpen: boolean }>`
   ${({ theme, modalIsOpen }) => css`
     height: ${modalIsOpen ? "100vh" : "0vh"};
     width: ${modalIsOpen ? "100vw" : "0vw"};
