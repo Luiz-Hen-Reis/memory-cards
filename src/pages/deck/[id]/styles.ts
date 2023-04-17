@@ -64,8 +64,8 @@ export const CardBack = styled.div`
   `}
 `;
 
-export const BtnContainer = styled.div<{ disabled: boolean }>`
-  ${({ theme, disabled }) => css`
+export const BtnContainer = styled.div`
+  ${({ theme }) => css`
     display: flex;
     justify-content: center;
     gap: 1rem;
@@ -78,8 +78,8 @@ export const BtnContainer = styled.div<{ disabled: boolean }>`
       box-shadow: ${theme.boxShadow};
       cursor: pointer;
 
-      &:nth-child(2) {
-        opacity: ${disabled ? ".5" : "1"};
+      &:nth-child(2):disabled {
+        opacity: .5;
       }
     }
   `}

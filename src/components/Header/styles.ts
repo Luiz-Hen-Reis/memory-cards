@@ -102,25 +102,29 @@ export const UserInfo = styled.nav`
     display: none;
     order: 2;
     cursor: pointer;
-
+    position: relative;
+    
     img {
       width: 5rem;
       height: 5rem;
       border-radius: 50%;
       margin: 0 0.5rem;
     }
-
+    
     p {
       font-size: 1.6rem;
       margin-right: 5px;
     }
 
     button {
-      font-size: ${theme.font.sizes.small};
-      background-color: ${theme.colors.ultraViolet};
-      padding: 0 1rem;
-      border-radius: ${theme.borderRadius};
       cursor: pointer;
+      position: absolute;
+      font-size: ${theme.font.sizes.small};
+      right: 5px;
+      bottom: -5px;
+      border-radius: ${theme.borderRadius};
+      padding: 0 5px;
+      background-color: ${theme.colors.ultraViolet};
     }
 
     @media ${theme.media.large} {

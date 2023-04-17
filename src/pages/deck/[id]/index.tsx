@@ -27,13 +27,18 @@ function Deck({ currentDeck }: Props) {
   useEffect(() => {
     setCurrentCard(currentDeck.cards[index]);
 
+    if (index === 3) {
+      nextCardBtn.current!.style.background = "red";
+    }
+
     if (cardIsTurned) {
       cardFrontEl.current!.style.transform = "rotateY(-100deg)";
       cardBackEl.current!.style.transform = "rotateY(0)";
-      nextCardBtn.current!.disabled = false;
+      nextCardBtn.current!.removeAttribute("disabled")
     } else if (!cardIsTurned) {
       cardFrontEl.current!.style.transform = "rotateY(0)";
       cardBackEl.current!.style.transform = "rotateY(180deg)";
+      nextCardBtn.current!.setAttribute("disabled", "");
     }
   }, [cardIsTurned, disabled]);
 
@@ -68,7 +73,7 @@ function Deck({ currentDeck }: Props) {
             {currentCard.back} {currentCard.id}
           </Styled.CardBack>
         </Styled.Card>
-        <Styled.BtnContainer disabled={disabled}>
+        <Styled.BtnContainer>
           <button onClick={turnCard}>Virar</button>
           <button ref={nextCardBtn} onClick={handleNextCard}>
             Próximo Cartão
