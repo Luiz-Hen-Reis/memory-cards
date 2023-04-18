@@ -1,10 +1,11 @@
 import Head from "next/head";
+import * as Styled from "./styles";
 import deck, { Deck as DeckType, Card } from "@/mockupData";
 import { GetServerSideProps } from "next";
 import { ParsedUrlQuery } from "querystring";
-import * as Styled from "./styles";
 import { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/router";
+import { toast } from 'react-toastify';
 
 type Props = {
   currentDeck: DeckType;
@@ -16,7 +17,6 @@ function Deck({ currentDeck }: Props) {
     currentDeck.cards[index]
   );
   const [cardIsTurned, setCardIsTurned] = useState(false);
-  const [disabled, setDisabled] = useState(true);
 
   const router = useRouter();
 
@@ -40,20 +40,22 @@ function Deck({ currentDeck }: Props) {
       cardBackEl.current!.style.transform = "rotateY(180deg)";
       nextCardBtn.current!.setAttribute("disabled", "");
     }
-  }, [cardIsTurned, disabled]);
+  }, [cardIsTurned]);
 
   function turnCard() {
     setCardIsTurned(true);
-    setDisabled(false);
   }
 
   function handleNextCard() {
     setIndex(index + 1);
     setCardIsTurned(false);
-    setDisabled(true);
 
     if (index === currentDeck.cards.length - 1) {
-      alert("Você terminou esse baralho");
+      toast.success("Você terminou esse baralho!", {
+        position: "top-center",
+        autoClose: 1000,
+        theme: "colored"
+      })
       setIndex(0);
       router.push("/");
     }

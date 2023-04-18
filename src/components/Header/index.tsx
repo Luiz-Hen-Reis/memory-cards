@@ -1,12 +1,14 @@
 import Link from "next/link";
 import * as Styled from "./styles";
-import Modal from "../Modal";
 import { useState } from "react";
 import { useRouter } from "next/router";
+import dynamic from "next/dynamic";
+
+const DynamicModal = dynamic(() => import("../Modal"));
 
 function Header() {
   const [modalIsOpen, setModalIsOpen] = useState(false);
-  const router = useRouter();
+  const [dropDownOn, setDropDownOn] = useState(false);
 
   function closeModal() {
     setModalIsOpen(false);
@@ -14,21 +16,22 @@ function Header() {
 
   return (
     <Styled.Container>
-      <Modal modalIsOpen={modalIsOpen} closeModal={closeModal} />
+      {modalIsOpen && (
+        <DynamicModal modalIsOpen={modalIsOpen} closeModal={closeModal} />
+      )}
       <Styled.UserInfo>
-      <Link href={"/"}>
-          <Styled.MyDeck>
-            <Styled.MyDeckBtn>
-              <span></span>
-              <span></span>
-              <span></span>
-            </Styled.MyDeckBtn>
-            <p>Meus Baralhos</p>
-          </Styled.MyDeck>
-        </Link>
-        <img src="https://github.com/Luiz-Hen-Reis.png" alt="" />
-        <p>fulano de tal</p>
-        <button onClick={() => router.push('/auth/login')}>Sair</button>
+        <Link href={"/"}>Meus Baralhos</Link>
+        <div onClick={() => setDropDownOn(!dropDownOn)}>
+          <img src="https://github.com/Luiz-Hen-Reis.png" alt="" />
+          <p>fulano de tal</p>
+          <span></span>
+          {dropDownOn && (
+            <Styled.DropDownMenu>
+              <Link href={"/"}>Meu Perfil</Link>
+              <Link href={"/auth/login"}>Sair</Link>
+            </Styled.DropDownMenu>
+          )}
+        </div>
       </Styled.UserInfo>
       <Styled.HamburgerBtn onClick={() => setModalIsOpen(true)}>
         <span></span>

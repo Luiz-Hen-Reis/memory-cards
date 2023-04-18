@@ -10,6 +10,35 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-// model User
-// model Deck
-// model Card
+model User {
+  id         Int    @id @default(autoincrement())
+  email      String @unique
+  name       String
+  password   String
+  profileImg String
+  decks      Deck[]
+
+  @@map("users")
+}
+
+model Deck {
+  id    Int    @id @default(autoincrement())
+  title String
+  cards Card[]
+
+  userId Int
+  user   User @relation(fields: [userId], references: [id])
+
+  @@map("decks")
+}
+
+model Card {
+  id           Int    @id @default(autoincrement())
+  frontContent String
+  backContent  String
+
+  deckId Int
+  deck   Deck @relation(fields: [deckId], references: [id])
+
+  @@map("cards")
+}

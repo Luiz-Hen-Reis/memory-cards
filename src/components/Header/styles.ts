@@ -101,82 +101,59 @@ export const UserInfo = styled.nav`
   ${({ theme }) => css`
     display: none;
     order: 2;
-    cursor: pointer;
     position: relative;
-    
+    font-size: 1.6rem;
+
     img {
       width: 5rem;
       height: 5rem;
       border-radius: 50%;
       margin: 0 0.5rem;
     }
-    
-    p {
-      font-size: 1.6rem;
-      margin-right: 5px;
+
+    a {
+      cursor: pointer;
     }
 
-    button {
+    div {
+      display: flex;
+      align-items: center;
       cursor: pointer;
-      position: absolute;
-      font-size: ${theme.font.sizes.small};
-      right: 5px;
-      bottom: -5px;
-      border-radius: ${theme.borderRadius};
-      padding: 0 5px;
-      background-color: ${theme.colors.ultraViolet};
+      position: relative;
+
+      span {
+        width: 0;
+        height: 0;
+        margin-left: 5px;
+        border-left: 7px solid transparent;
+        border-right: 7px solid transparent;
+
+        border-top: 7px solid ${theme.colors.ultraViolet};
+      }
     }
 
     @media ${theme.media.large} {
       display: flex;
+      justify-content: space-between;
+      gap: 0.5rem;
       align-items: center;
     }
   `}
 `;
 
-export const MyDeck = styled.div`
+export const DropDownMenu = styled.nav`
   ${({ theme }) => css`
+    position: absolute;
+    bottom: -4rem;
+    right: 0;
     display: flex;
-    align-items: center;
-    justify-content: space-evenly;
-    gap: 1rem;
+    flex-direction: column;
     background-color: ${theme.colors.ultraViolet};
-    font-size: ${theme.font.sizes.small};
     border-radius: ${theme.borderRadius};
-    box-shadow: ${theme.boxShadow};
-    cursor: pointer;
+    padding: 0 1rem;
 
-    &:hover {
-      background-color: ${theme.colors.columbiaBlue};
-      color: ${theme.colors.ultraViolet};
-    }
-
-    p {
-      padding: 0 2rem;
-      z-index: 1;
-    }
-  `}
-`;
-
-export const MyDeckBtn = styled(HamburgerBtn)`
-  ${({ theme }) => css`
-    @media ${theme.media.large} {
-      display: flex;
-      transition: all ease 0.3s;
-
-      span {
-        &:nth-child(1) {
-          width: 1rem;
-        }
-
-        &:nth-child(3) {
-          width: 2rem;
-        }
-
-        &:nth-child(2) {
-          width: 3rem;
-        }
-      }
+    a:not(:last-child) {
+      border-bottom: 1px solid ${theme.colors.columbiaBlue};
     }
   `}
 `;
