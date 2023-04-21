@@ -13,7 +13,6 @@ export const Container = styled.nav<{ modalIsOpen: boolean }>`
     top: 0;
     right: 0;
     z-index: 99;
-    transition: all ease 0.3s;
     background-color: ${theme.colors.federalBlue};
 
     @media ${theme.media.medium} {

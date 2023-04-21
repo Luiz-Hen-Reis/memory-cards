@@ -1,7 +1,11 @@
-import { GridArea } from "@/components";
 import Head from "next/head";
+import { GetServerSideProps } from 'next';
+import { parseCookies } from 'nookies';
+import { GridArea } from "@/components";
 
 function Index() {
+
+
   return (
     <>
       <Head>
@@ -15,3 +19,20 @@ function Index() {
 }
 
 export default Index;
+
+export const getServerSideProps: GetServerSideProps =  async (ctx) => {
+  const { 'nextmemorycards.token': token } = parseCookies(ctx);
+
+  if (!token) {
+    return {
+      redirect: {
+        destination: '/auth/login',
+        permanent: false,
+      },
+    };
+  }
+
+  return {
+    props: {},
+  };
+}

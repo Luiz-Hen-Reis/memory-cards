@@ -5,15 +5,23 @@ import jwt from "jsonwebtoken";
 import toCapitalize from "@/helpers/toCapitalize";
 
 const handler: NextApiHandler = async (req, res) => {
-  const { email, password } = req.body;
+  const { email, name, password } = req.body;
 
-  const user = await prisma.user.findUnique({ where: { email } });
+  const profileImg = "/assets/images/avatar.png";
+  const userAlreadyExist = await prisma.user.findUnique({ where: { email } });
 
-  if (!user) {
-    return res.status(400).send({ status: "Cannot find user" });
+  if (userAlreadyExist) {
+    return res.status(200).json({ userAlreadyExist });
   }
 
-  if (await bcrypt.compare(password, user.password)) {
+  const hashedPassword = await bcrypt.hash(password, 10);
+
+  await prisma.user.create({
+    data: { name, email, password: hashedPassword, profileImg },
+  });
+
+  const user = await prisma.user.findUnique({ where: { email } });
+  if (user) {
     const token = jwt.sign(
       {
         exp: Math.floor(Date.now() / 1000) + 60 * 60 /*1 hour*/,
@@ -22,13 +30,13 @@ const handler: NextApiHandler = async (req, res) => {
       "privateKey"
     );
 
-    res.status(200).json({
+    res.status(201).json({
       token,
       user: {
         id: user.id,
         name: toCapitalize(user.name),
         email: user.email,
-        profileImg: user.profileImg,
+        profileImg,
       },
     });
   }

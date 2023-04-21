@@ -5,7 +5,7 @@ import { GetServerSideProps } from "next";
 import { ParsedUrlQuery } from "querystring";
 import { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/router";
-import { toast } from 'react-toastify';
+import { toast } from "react-toastify";
 
 type Props = {
   currentDeck: DeckType;
@@ -34,7 +34,7 @@ function Deck({ currentDeck }: Props) {
     if (cardIsTurned) {
       cardFrontEl.current!.style.transform = "rotateY(-100deg)";
       cardBackEl.current!.style.transform = "rotateY(0)";
-      nextCardBtn.current!.removeAttribute("disabled")
+      nextCardBtn.current!.removeAttribute("disabled");
     } else if (!cardIsTurned) {
       cardFrontEl.current!.style.transform = "rotateY(0)";
       cardBackEl.current!.style.transform = "rotateY(180deg)";
@@ -54,8 +54,8 @@ function Deck({ currentDeck }: Props) {
       toast.success("Você terminou esse baralho!", {
         position: "top-center",
         autoClose: 1000,
-        theme: "colored"
-      })
+        theme: "colored",
+      });
       setIndex(0);
       router.push("/");
     }
