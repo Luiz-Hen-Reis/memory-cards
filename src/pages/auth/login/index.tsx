@@ -1,25 +1,30 @@
 import Head from "next/head";
 import * as Styled from "./styles";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { useRouter } from "next/router";
 import { GetServerSideProps } from "next";
 import { parseCookies } from "nookies";
 import { useForm } from "react-hook-form";
-import {
-  RegisterData,
-  SignInData,
-  useAuthContext,
-} from "@/contexts/AuthContext";
+import { useAuthContext } from "@/contexts/AuthContext";
+
+type FormValues = {
+  email: string;
+  name: string;
+  password: string;
+};
 
 function Login() {
-  const [isRegistered, setIsRegistered] = useState(true);
-  const { register, handleSubmit } = useForm<SignInData>();
   const { signIn, signUp } = useAuthContext();
-  const router = useRouter();
+  const [isRegistered, setIsRegistered] = useState(true);
+  const { register, handleSubmit } = useForm<FormValues>();
 
-  async function handleLogin(data: SignInData | RegisterData) {
-      await signUp(data as RegisterData);
-  }
+  const onSubmit = handleSubmit(async (data) => {
+    if (isRegistered) {
+      await signIn(data);
+    } else {
+      await signUp(data);
+    }
+  });
 
   return (
     <Styled.Container>
@@ -30,8 +35,9 @@ function Login() {
       <Styled.FormContainer>
         <h2>{isRegistered ? "Fazer Login" : "Registre-se"}</h2>
 
-        <form onSubmit={handleSubmit(handleLogin)}>
+        <form onSubmit={onSubmit}>
           <label htmlFor="email-adress">Email</label>
+
           <input
             {...register("email")}
             type="email"
@@ -40,7 +46,7 @@ function Login() {
             required
             placeholder="Digite Seu Email"
           />
-          {/* {!isRegistered && (
+          {!isRegistered && (
             <>
               <label htmlFor="name">Nome</label>
               <input
@@ -52,7 +58,7 @@ function Login() {
                 placeholder="Digite Seu Nome"
               />
             </>
-          )} */}
+          )}
           <label htmlFor="password">Senha</label>
           <input
             {...register("password")}
@@ -83,7 +89,7 @@ function Login() {
 export default Login;
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
-  const { "nextmemorycards.token": token } = parseCookies(ctx);
+  const { "nextmemorycard.token": token } = parseCookies(ctx);
 
   if (token) {
     return {

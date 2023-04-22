@@ -1,12 +1,15 @@
+import { useAuthContext } from "@/contexts/AuthContext";
 import * as Styled from "./styles";
-import { Deck } from "@/mockupData";
 import Link from "next/link";
+import { Deck } from "@/types/UserInfo";
 
 type Props = {
   deck: Deck;
 };
 
 function GridItem({ deck }: Props) {
+  const { user } = useAuthContext();
+
   return (
     <Styled.Container>
       <Link href={`/deck/${deck.id}`}>
@@ -15,8 +18,8 @@ function GridItem({ deck }: Props) {
           <p>0 termos</p>
         </Styled.DeckTitle>
         <Styled.DeckUser>
-          <img src="https://github.com/Luiz-Hen-Reis.png" alt="" />
-          <span>{deck.user.name}</span>
+          <img src={user?.profileImg} alt={user?.name} />
+          <span>{user?.name}</span>
         </Styled.DeckUser>
       </Link>
     </Styled.Container>

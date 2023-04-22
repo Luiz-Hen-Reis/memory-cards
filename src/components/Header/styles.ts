@@ -49,7 +49,7 @@ export const HamburgerBtn = styled.div`
   `}
 `;
 
-export const RightSide = styled.div`
+export const AddBtn = styled.div`
   ${({ theme }) => css`
     display: flex;
     align-items: center;
@@ -73,7 +73,7 @@ export const RightSide = styled.div`
   `}
 `;
 
-export const PlusBtn = styled(HamburgerBtn)`
+export const PlusSign = styled(HamburgerBtn)`
   ${({ theme }) => css`
     background-color: transparent;
     width: 6rem;
@@ -113,6 +113,16 @@ export const UserInfo = styled.nav`
 
     a {
       cursor: pointer;
+      font-size: ${theme.font.sizes.small};
+      color: ${theme.colors.columbiaBlue};
+      
+      &:not(:last-child) {
+        margin-right: 1rem;
+      }
+
+      &:hover {
+        color: ${theme.colors.mintCream};
+      }
     }
 
     div {

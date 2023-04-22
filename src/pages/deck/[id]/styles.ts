@@ -1,4 +1,3 @@
-import { MutableRefObject, Ref } from "react";
 import styled, { css } from "styled-components";
 
 export const Container = styled.main`

@@ -1,6 +1,7 @@
 import Link from "next/link";
 import * as Styled from "./styles";
 import { useRouter } from "next/router";
+import { useAuthContext } from "@/contexts/AuthContext";
 
 type Props = {
   modalIsOpen: boolean;
@@ -9,6 +10,7 @@ type Props = {
 
 function Modal({ modalIsOpen, closeModal }: Props) {
   const router = useRouter();
+  const { user, signOut } = useAuthContext();
 
   return (
     <Styled.Container modalIsOpen={modalIsOpen}>
@@ -20,13 +22,18 @@ function Modal({ modalIsOpen, closeModal }: Props) {
       </Styled.Header>
       <Styled.ModalBody>
         <Styled.UserInfo>
-          <img src="https://github.com/Luiz-Hen-Reis.png" alt="" />
-          <p>fulano de tal</p>
+          {!user && "Carregando..."}
+          {user && (
+            <>
+              <img src={user.profileImg} alt="" />
+              <p>{user.name}</p>
+            </>
+          )}
         </Styled.UserInfo>
         <Link href={"/"} onClick={closeModal}>
           Meus Baralhos
         </Link>
-        <button onClick={() => router.push('/auth/login')}>Sair</button>
+        <button onClick={signOut}>Sair</button>
       </Styled.ModalBody>
     </Styled.Container>
   );

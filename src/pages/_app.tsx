@@ -7,7 +7,8 @@ import { GlobalStyles } from "@/styles/global-styles";
 import { ThemeProvider } from "styled-components";
 
 import { ToastContainer } from "react-toastify";
-import 'react-toastify/dist/ReactToastify.css';
+import "react-toastify/dist/ReactToastify.css";
+import { AuthProvider } from "@/contexts/AuthContext";
 
 const DynamicHeader = dynamic(() => import("../components/Header"));
 
@@ -16,12 +17,14 @@ export default function App({ Component, pageProps }: AppProps) {
 
   return (
     <>
-      <ThemeProvider theme={theme}>
-        {!router.pathname.includes("auth") && <DynamicHeader />}
-        <GlobalStyles />
-        <Component {...pageProps} />
-        <ToastContainer />
-      </ThemeProvider>
+      <AuthProvider>
+        <ThemeProvider theme={theme}>
+          {!router.pathname.includes("auth") && <DynamicHeader />}
+          <GlobalStyles />
+          <Component {...pageProps} />
+          <ToastContainer />
+        </ThemeProvider>
+      </AuthProvider>
     </>
   );
 }

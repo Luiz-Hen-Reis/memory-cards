@@ -3,6 +3,7 @@ import * as Styled from "./styles";
 import { useState } from "react";
 import { useRouter } from "next/router";
 import dynamic from "next/dynamic";
+import { useAuthContext } from "@/contexts/AuthContext";
 
 const DynamicModal = dynamic(() => import("../Modal"));
 
@@ -10,9 +11,11 @@ function Header() {
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [dropDownOn, setDropDownOn] = useState(false);
 
+  const { user, signOut } = useAuthContext();
+
   function closeModal() {
     setModalIsOpen(false);
-  }
+  }  
 
   return (
     <Styled.Container>
@@ -20,18 +23,24 @@ function Header() {
         <DynamicModal modalIsOpen={modalIsOpen} closeModal={closeModal} />
       )}
       <Styled.UserInfo>
+        <Link href={"/deck/add-cards"}>Adicionar Cartas a um Baralho</Link>
         <Link href={"/"}>Meus Baralhos</Link>
-        <div onClick={() => setDropDownOn(!dropDownOn)}>
-          <img src="https://github.com/Luiz-Hen-Reis.png" alt="" />
-          <p>fulano de tal</p>
-          <span></span>
-          {dropDownOn && (
-            <Styled.DropDownMenu>
-              <Link href={"/"}>Meu Perfil</Link>
-              <Link href={"/auth/login"}>Sair</Link>
-            </Styled.DropDownMenu>
-          )}
-        </div>
+        {!user && "Carregando..."}
+        {user && (
+          <div onClick={() => setDropDownOn(!dropDownOn)}>
+            <img src={user?.profileImg} alt="" />
+            <p>{user?.name}</p>
+            <span></span>
+            {dropDownOn && (
+              <Styled.DropDownMenu>
+                <Link href={"/"}>Meu Perfil</Link>
+                <button onClick={signOut}>
+                  Sair
+                </button>
+              </Styled.DropDownMenu>
+            )}
+          </div>
+        )}
       </Styled.UserInfo>
       <Styled.HamburgerBtn onClick={() => setModalIsOpen(true)}>
         <span></span>
@@ -39,13 +48,13 @@ function Header() {
         <span></span>
       </Styled.HamburgerBtn>
       <Link href={"/deck/new-deck"}>
-        <Styled.RightSide>
-          <Styled.PlusBtn>
+        <Styled.AddBtn>
+          <Styled.PlusSign>
             <span></span>
             <span></span>
-          </Styled.PlusBtn>
+          </Styled.PlusSign>
           <p>Criar Novo Baralho</p>
-        </Styled.RightSide>
+        </Styled.AddBtn>
       </Link>
     </Styled.Container>
   );

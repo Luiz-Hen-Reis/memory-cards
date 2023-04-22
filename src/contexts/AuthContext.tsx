@@ -1,35 +1,29 @@
-import { registerRequest, signInRequest } from "@/libs/auth";
-import { setCookie, destroyCookie } from "nookies";
-import { ReactNode, useContext, useState } from "react";
+import {
+  recoverUserInformation,
+  registerRequest,
+  signInRequest,
+} from "@/libs/auth";
+import { setCookie, destroyCookie, parseCookies } from "nookies";
+import { ReactNode, useContext, useEffect, useState } from "react";
 import { createContext } from "react";
 import { useRouter } from "next/router";
-
-type User = {
-  name: string;
-  email: String;
-};
+import { User } from "@/types/UserInfo";
 
 type ProviderProps = {
   children: ReactNode;
 };
 
-export type SignInData = {
-  email: string;
-  password: string;
-}
-
-export type RegisterData = {
+type FormValues = {
   email: string;
   name: string;
   password: string;
-}
-
+};
 
 type AuthContextType = {
   user: User | null;
-  signIn: (data: SignInData) => Promise<void>;
+  signIn: (data: FormValues) => Promise<void>;
   signOut: () => void;
-  signUp: (data: RegisterData) => Promise<void>;
+  signUp: (data: FormValues) => Promise<void>;
 };
 
 export const AuthContext = createContext({} as AuthContextType);
@@ -38,13 +32,29 @@ export function AuthProvider({ children }: ProviderProps) {
   const [user, setUser] = useState<User | null>(null);
   const router = useRouter();
 
-  async function signIn({ email, password }: SignInData) {
-      const { user, token } = await signInRequest({ email, password });
-      console.log(user);
-      
+  useEffect(() => {
+    const { "nextmemorycard.token": token } = parseCookies();
+
+    if (token) {
+      recoverUserInformation(token).then((response) => {
+        setUser(response);
+      });
+    }
+  }, []);
+
+  async function signIn(data: FormValues) {
+    const { user, token } = await signInRequest(data);
+    setCookie(undefined, "nextmemorycard.token", token, {
+      maxAge: 60 * 60 * 1, // 1 hour
+      path: "/",
+    });
+
+    setUser(user);
+
+    router.push("/");
   }
 
-  async function signUp({ email, name, password }: RegisterData) {
+  async function signUp({ email, name, password }: FormValues) {
     const { user, token } = await registerRequest({
       email,
       name,
@@ -53,6 +63,7 @@ export function AuthProvider({ children }: ProviderProps) {
 
     setCookie(undefined, "nextmemorycard.token", token, {
       maxAge: 60 * 60 * 1, // 1 hour
+      path: "/",
     });
 
     setUser(user);
@@ -63,6 +74,7 @@ export function AuthProvider({ children }: ProviderProps) {
   function signOut() {
     destroyCookie(undefined, "nextmemorycard.token", { path: "/" });
     setUser(null);
+    router.push("/auth/login");
   }
 
   return (

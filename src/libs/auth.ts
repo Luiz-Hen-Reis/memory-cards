@@ -21,12 +21,13 @@ export async function signInRequest({ email, password }: SignInRequestData) {
   return request.data;
 }
 
-// export async function recoverUserInformation(token: string) {
-//   const decoded: JwtData = jwt_decode(token);
-//   const userId = decoded.id;
-//   const request = await axios.get(`/api/user/${userId}`);
-//   return request.data;
-// }
+export async function recoverUserInformation(token: string) {
+  const decoded: JwtData = jwt_decode(token);
+  const userId = decoded.id;
+  const request = await axios.get(`http://localhost:3000/api/auth/user/${userId}`);
+  
+  return request.data;
+}
 
 export async function registerRequest({
   email,

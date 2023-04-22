@@ -8,6 +8,7 @@ const handler: NextApiHandler = async (req, res) => {
   const { email, password } = req.body;
 
   const user = await prisma.user.findUnique({ where: { email } });
+  const decks = await prisma.user.findUnique({ where: { email } }).decks();
 
   if (!user) {
     return res.status(400).send({ status: "Cannot find user" });
@@ -21,7 +22,6 @@ const handler: NextApiHandler = async (req, res) => {
       },
       "privateKey"
     );
-
     res.status(200).json({
       token,
       user: {
@@ -29,6 +29,7 @@ const handler: NextApiHandler = async (req, res) => {
         name: toCapitalize(user.name),
         email: user.email,
         profileImg: user.profileImg,
+        decks,
       },
     });
   }
