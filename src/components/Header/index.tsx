@@ -33,7 +33,7 @@ function Header() {
             <span></span>
             {dropDownOn && (
               <Styled.DropDownMenu>
-                <Link href={"/"}>Meu Perfil</Link>
+                <Link href={"/my-profile"}>Meu Perfil</Link>
                 <button onClick={signOut}>
                   Sair
                 </button>

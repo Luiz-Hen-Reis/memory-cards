@@ -30,6 +30,9 @@ function Modal({ modalIsOpen, closeModal }: Props) {
             </>
           )}
         </Styled.UserInfo>
+        <Link href={"/my-profile"} onClick={closeModal}>
+          Meu Perfil
+        </Link>
         <Link href={"/"} onClick={closeModal}>
           Meus Baralhos
         </Link>
