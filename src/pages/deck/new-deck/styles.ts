@@ -8,12 +8,10 @@ export const Container = styled.form`
     margin: ${theme.spacings.xhuge} 1rem;
     height: 100%;
     font-size: ${theme.font.sizes.small};
-
     h1 {
       margin-bottom: ${theme.spacings.large};
       text-align: center;
     }
-
     input {
       all: unset;
       height: ${theme.spacings.xlarge};
@@ -23,7 +21,6 @@ export const Container = styled.form`
       box-shadow: ${theme.boxShadow};
       margin-bottom: ${theme.spacings.medium};
       color: ${theme.colors.eerieBlack};
-
       &[type="submit"] {
         background-color: ${theme.colors.eerieBlack};
         color: ${theme.colors.mintCream};
@@ -31,7 +28,6 @@ export const Container = styled.form`
         cursor: pointer;
       }
     }
-
     @media ${theme.media.medium} {
         width: 40rem;
         margin: ${theme.spacings.xhuge} auto;
