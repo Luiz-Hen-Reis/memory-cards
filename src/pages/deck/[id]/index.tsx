@@ -6,6 +6,9 @@ import { ParsedUrlQuery } from "querystring";
 import { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/router";
 import { toast } from "react-toastify";
+import { parseCookies } from "nookies";
+import { recoverUserInformation } from "@/libs/auth";
+import axios from "axios";
 
 type Props = {
   currentDeck: DeckType;
@@ -95,11 +98,23 @@ interface IParams extends ParsedUrlQuery {
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const { id } = context.params as IParams;
 
-  const currentDeck = deck[Number(id)];
 
+  const { "nextmemorycard.token": token } = parseCookies(context);
+
+  if (!token) {
+    return {
+      redirect: {
+        destination: "/auth/login",
+        permanent: false,
+      },
+    };
+  }
+
+  const user = await recoverUserInformation(token);
+  
   return {
     props: {
-      currentDeck,
+      // currentDeck,
     },
   };
 };

@@ -5,6 +5,9 @@ import { useAuthContext } from "@/contexts/AuthContext";
 import { toast } from "react-toastify";
 import axios from "axios";
 import Router from "next/router";
+import { GetServerSideProps } from "next";
+import { parseCookies } from "nookies";
+import { recoverUserInformation } from "@/libs/auth";
 
 function NewDeck() {
   const { register, handleSubmit, setValue } = useForm();
@@ -13,7 +16,7 @@ function NewDeck() {
   const onSubmit = handleSubmit(async ({ title }) => {
     try {
       const response = await axios.post(
-        `http://localhost:3000/api/auth/user/${user?.id}/create-deck`,
+        `/api/auth/user/${user?.id}/create-deck`,
         { title }
       );
 
@@ -56,3 +59,25 @@ function NewDeck() {
 }
 
 export default NewDeck;
+
+export const getServerSideProps: GetServerSideProps = async (ctx) => {
+  const { "nextmemorycard.token": token } = parseCookies(ctx);
+
+  if (!token) {
+    return {
+      redirect: {
+        destination: "/auth/login",
+        permanent: false,
+      },
+    };
+  }
+
+  const user = await recoverUserInformation(token);
+
+  return {
+    props: {
+      user,
+    },
+  };
+};
+
