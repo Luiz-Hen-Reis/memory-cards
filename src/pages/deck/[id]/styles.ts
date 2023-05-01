@@ -50,7 +50,7 @@ export const CardBack = styled.div`
     justify-content: center;
     height: 45rem;
     background: ${theme.colors.ultraViolet};
-    transition: all 0.8s ease;
+    transition: all 0.1s ease;
     position: absolute;
     top: 0;
     left: 0;

@@ -11,12 +11,12 @@ import { recoverUserInformation } from "@/libs/auth";
 
 function NewDeck() {
   const { register, handleSubmit, setValue } = useForm();
-  const { user } = useAuthContext();
+  const { user: userData } = useAuthContext();
 
   const onSubmit = handleSubmit(async ({ title }) => {
     try {
       const response = await axios.post(
-        `/api/auth/user/${user?.id}/create-deck`,
+        `/api/auth/user/${userData?.user.id}/create-deck`,
         { title }
       );
 

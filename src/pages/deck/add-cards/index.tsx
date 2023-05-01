@@ -9,12 +9,12 @@ import { recoverUserInformation } from "@/libs/auth";
 import { toast } from "react-toastify";
 
 function AddCards() {
-  const { userData } = useAuthContext();
+  const { user: userData } = useAuthContext();
   const { register, handleSubmit, setValue } = useForm();
 
   const onSubmit = handleSubmit(async ({ cardFront, cardBack, deck: deckId }) => {
     await axios.post(
-      `/api/auth/user/1/deck/${deckId}/add-card`,
+      `/api/auth/user/deck/${deckId}/add-card`,
       { cardFront, cardBack })
       toast.success('Carta criada com sucesso!');
       setValue("cardFront", "");

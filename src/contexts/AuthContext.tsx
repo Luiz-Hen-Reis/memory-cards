@@ -7,7 +7,7 @@ import { setCookie, destroyCookie, parseCookies } from "nookies";
 import { ReactNode, useContext, useEffect, useState } from "react";
 import { createContext } from "react";
 import { useRouter } from "next/router";
-import { UserData } from "@/types/UserInfo";
+import { User, UserData } from "@/types/UserInfo";
 
 type ProviderProps = {
   children: ReactNode;
@@ -20,7 +20,7 @@ type FormValues = {
 };
 
 type AuthContextType = {
-  userData: UserData | null;
+  user: User | null;
   signIn: (data: FormValues) => Promise<void>;
   signOut: () => void;
   signUp: (data: FormValues) => Promise<void>;
@@ -29,7 +29,7 @@ type AuthContextType = {
 export const AuthContext = createContext({} as AuthContextType);
 
 export function AuthProvider({ children }: ProviderProps) {
-  const [userData, setUserData] = useState<UserData | null>(null);
+  const [user, setUser] = useState<User | null>(null);
   const router = useRouter();
 
   useEffect(() => {
@@ -37,7 +37,7 @@ export function AuthProvider({ children }: ProviderProps) {
 
     if (token) {
       recoverUserInformation(token).then((response) => {
-        setUserData(response);
+        setUser(response.user);
       });
     }
   }, []);
@@ -49,7 +49,7 @@ export function AuthProvider({ children }: ProviderProps) {
       path: "/",
     });
 
-    setUserData(user);
+    setUser(user);
 
     router.push("/");
   }
@@ -66,19 +66,19 @@ export function AuthProvider({ children }: ProviderProps) {
       path: "/",
     });
 
-    setUserData(user);
+    setUser(user);
 
     router.push("/");
   }
 
   function signOut() {
     destroyCookie(undefined, "nextmemorycard.token", { path: "/" });
-    setUserData(null);
+    setUser(null);
     router.push("/auth/login");
   }
 
   return (
-    <AuthContext.Provider value={{ userData, signIn, signUp, signOut }}>
+    <AuthContext.Provider value={{ user: user, signIn, signUp, signOut }}>
       {children}
     </AuthContext.Provider>
   );

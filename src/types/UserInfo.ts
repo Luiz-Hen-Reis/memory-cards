@@ -10,10 +10,21 @@ export type User = {
   decks: Deck[];
 };
 
+export type DeckData = {
+  deck: Deck;
+}
+
 export type Deck = {
   id: number;
   title: string;
   cards: Card[];
+  user: {
+    id: number;
+    name: string;
+    email: string;
+    profileImg: string;
+  };
+  userId: number;
 };
 
 export type Card = {

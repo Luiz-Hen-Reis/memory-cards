@@ -10,7 +10,7 @@ type Props = {
 
 function Modal({ modalIsOpen, closeModal }: Props) {
   const router = useRouter();
-  const { userData, signOut } = useAuthContext();
+  const { user: userData, signOut } = useAuthContext();
 
   return (
     <Styled.Container modalIsOpen={modalIsOpen}>

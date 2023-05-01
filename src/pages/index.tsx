@@ -21,7 +21,7 @@ function Index({ userData }: Props) {
         {userData.user.decks.length < 1 &&
           <Title>Você ainda não possuí nenhum baralho. <Link href={'/deck/new-deck'}>Criar Novo Baralho?</Link></Title>
         }
-        {userData.user.decks.length > 1 &&
+        {userData.user.decks.length >= 1 &&
           <GridArea decks={userData.user.decks} />
         }
       </main>

@@ -1,6 +1,6 @@
 import Head from "next/head";
 import * as Styled from "./styles";
-import deck, { Deck as DeckType, Card } from "@/mockupData";
+import axios from "axios";
 import { GetServerSideProps } from "next";
 import { ParsedUrlQuery } from "querystring";
 import { useEffect, useRef, useState } from "react";
@@ -8,17 +8,17 @@ import { useRouter } from "next/router";
 import { toast } from "react-toastify";
 import { parseCookies } from "nookies";
 import { recoverUserInformation } from "@/libs/auth";
-import axios from "axios";
-import { UserData } from "@/types/UserInfo";
+import { Card, DeckData, UserData } from "@/types/UserInfo";
+import { theme } from "@/styles/theme";
 
 type Props = {
-  currentDeck: DeckType;
+  currentDeck: DeckData;
 };
 
 function Deck({ currentDeck }: Props) {
-  const [index, setIndex] = useState(0);
-  const [currentCard, setCurrentCard] = useState<Card>(
-    currentDeck.cards[index]
+  const [index, setIndex] = useState<number>(0);
+  const [currentCard, setCurrentCard] = useState<Card | null>(
+    currentDeck.deck.cards[index]
   );
   const [cardIsTurned, setCardIsTurned] = useState(false);
 
@@ -29,21 +29,21 @@ function Deck({ currentDeck }: Props) {
   const nextCardBtn = useRef<HTMLButtonElement>(null);
 
   useEffect(() => {
-    setCurrentCard(currentDeck.cards[index]);
+    setCurrentCard(currentDeck.deck.cards[index]);
 
-    if (index === 3) {
-      nextCardBtn.current!.style.background = "red";
-    }
 
-    if (cardIsTurned) {
-      cardFrontEl.current!.style.transform = "rotateY(-100deg)";
-      cardBackEl.current!.style.transform = "rotateY(0)";
-      nextCardBtn.current!.removeAttribute("disabled");
-    } else if (!cardIsTurned) {
-      cardFrontEl.current!.style.transform = "rotateY(0)";
-      cardBackEl.current!.style.transform = "rotateY(180deg)";
-      nextCardBtn.current!.setAttribute("disabled", "");
-    }
+      if (cardIsTurned) {
+        cardFrontEl.current!.style.transform = "rotateY(-100deg)";
+        cardBackEl.current!.style.transform = "rotateY(0)";
+        nextCardBtn.current!.removeAttribute("disabled");
+        cardBackEl.current!.style.color = `${theme.colors.mintCream}`;
+      } else if (!cardIsTurned) {
+        cardFrontEl.current!.style.transform = "rotateY(0)";
+        cardBackEl.current!.style.transform = "rotateY(180deg)";
+        cardBackEl.current!.style.color = `${theme.colors.ultraViolet}`;
+        nextCardBtn.current!.setAttribute("disabled", "");
+      }
+    
   }, [cardIsTurned]);
 
   function turnCard() {
@@ -51,10 +51,10 @@ function Deck({ currentDeck }: Props) {
   }
 
   function handleNextCard() {
-    setIndex(index + 1);
     setCardIsTurned(false);
+    setIndex(index + 1);
 
-    if (index === currentDeck.cards.length - 1) {
+    if (index === currentDeck.deck.cards.length - 1) {
       toast.success("Você terminou esse baralho!", {
         position: "top-center",
         autoClose: 1000,
@@ -68,23 +68,29 @@ function Deck({ currentDeck }: Props) {
   return (
     <>
       <Head>
-        <title>Baralho | {currentDeck.title}</title>
+        <title>Baralho | {currentDeck.deck.title}</title>
       </Head>
       <Styled.Container>
-        <Styled.Card>
-          <Styled.CardFront ref={cardFrontEl}>
-            {currentCard.front} {currentCard.id}
-          </Styled.CardFront>
-          <Styled.CardBack ref={cardBackEl}>
-            {currentCard.back} {currentCard.id}
-          </Styled.CardBack>
-        </Styled.Card>
-        <Styled.BtnContainer>
-          <button onClick={turnCard}>Virar</button>
-          <button ref={nextCardBtn} onClick={handleNextCard}>
-            Próximo Cartão
-          </button>
-        </Styled.BtnContainer>
+        {currentCard && (
+          <>
+            <Styled.Card>
+              <Styled.CardFront ref={cardFrontEl}>
+                {currentCard.frontContent}
+              </Styled.CardFront>
+              <Styled.CardBack ref={cardBackEl}>
+                {currentCard.backContent}
+              </Styled.CardBack>
+            </Styled.Card>
+            <Styled.BtnContainer>
+              <button onClick={turnCard}>Virar</button>
+              <button ref={nextCardBtn} onClick={handleNextCard}>
+                Próximo Cartão
+              </button>
+            </Styled.BtnContainer>
+          </>
+        )}
+
+        {!currentCard && <p>opa</p>}
       </Styled.Container>
     </>
   );
@@ -99,6 +105,8 @@ interface IParams extends ParsedUrlQuery {
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const { id } = context.params as IParams;
 
+  const res = await axios.get(`http://localhost:3000/api/auth/user/deck/${id}`);
+  const currentDeck: DeckData = res.data;
 
   const { "nextmemorycard.token": token } = parseCookies(context);
 
@@ -112,10 +120,10 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   }
 
   const userData: UserData = await recoverUserInformation(token);
-  
+
   return {
     props: {
-      // currentDeck,
+      currentDeck,
     },
   };
 };

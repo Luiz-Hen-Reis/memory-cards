@@ -10,12 +10,12 @@ function Header() {
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [dropDownOn, setDropDownOn] = useState(false);
 
-  const { userData, signOut } = useAuthContext();
+  const { user: userData, signOut } = useAuthContext();
 
   function closeModal() {
     setModalIsOpen(false);
-  }  
-
+  }
+  
   return (
     <Styled.Container>
       {modalIsOpen && (
@@ -27,14 +27,12 @@ function Header() {
         {!userData && "Carregando..."}
         {userData && (
           <div onClick={() => setDropDownOn(!dropDownOn)}>
-            <img src={userData?.user.profileImg} alt="" />
-            <p>{userData?.user.name}</p>
+            <img src={userData.profileImg} alt={userData.name} />
+            <p>{userData.name}</p>
             <span></span>
             {dropDownOn && (
               <Styled.DropDownMenu>
-                <button onClick={signOut}>
-                  Sair
-                </button>
+                <button onClick={signOut}>Sair</button>
               </Styled.DropDownMenu>
             )}
           </div>
