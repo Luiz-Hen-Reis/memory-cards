@@ -2,27 +2,27 @@ import Head from "next/head";
 import { GetServerSideProps } from "next";
 import { parseCookies } from "nookies";
 import { GridArea } from "@/components";
-import { User } from "@/types/UserInfo";
+import {  UserData } from "@/types/UserInfo";
 import { recoverUserInformation } from "@/libs/auth";
 import Link from "next/link";
 import styled, { css } from "styled-components";
 
 type Props = {
-  user: User;
+  userData: UserData;
 };
 
-function Index({ user }: Props) {
+function Index({ userData }: Props) {
   return (
     <>
       <Head>
         <title>Memory Cards</title>
       </Head>
       <main>
-        {user.decks.length < 1 &&
+        {userData.user.decks.length < 1 &&
           <Title>Você ainda não possuí nenhum baralho. <Link href={'/deck/new-deck'}>Criar Novo Baralho?</Link></Title>
         }
-        {user.decks.length > 1 &&
-          <GridArea decks={user.decks} />
+        {userData.user.decks.length > 1 &&
+          <GridArea decks={userData.user.decks} />
         }
       </main>
     </>
@@ -58,11 +58,11 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
     };
   }
 
-  const user = await recoverUserInformation(token);
+  const userData: UserData = await recoverUserInformation(token);
 
   return {
     props: {
-      user,
+      userData,
     },
   };
 };

@@ -9,7 +9,7 @@ import { recoverUserInformation } from "@/libs/auth";
 import { toast } from "react-toastify";
 
 function AddCards() {
-  const { user } = useAuthContext();
+  const { userData } = useAuthContext();
   const { register, handleSubmit, setValue } = useForm();
 
   const onSubmit = handleSubmit(async ({ cardFront, cardBack, deck: deckId }) => {
@@ -36,10 +36,10 @@ function AddCards() {
           <input type="text" {...register("cardBack")} required />
 
           <label htmlFor="deck">Escolha o baralho:</label>
-          {!user && <p>Carregando....</p>}
-          {user && (
+          {!userData && <p>Carregando....</p>}
+          {userData && (
             <select {...register("deck")}>
-              {user.decks.map((deck) => (
+              {userData.user.decks.map((deck) => (
                 <option value={deck.id} key={deck.id}>
                   {deck.title}
                 </option>
@@ -50,7 +50,7 @@ function AddCards() {
           <input
             type="submit"
             value="Criar nova carta"
-            disabled={user ? false : true}
+            disabled={userData ? false : true}
           />
         </Styled.FormContainer>
       </Styled.Container>

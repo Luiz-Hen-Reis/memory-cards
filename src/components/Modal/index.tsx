@@ -10,7 +10,7 @@ type Props = {
 
 function Modal({ modalIsOpen, closeModal }: Props) {
   const router = useRouter();
-  const { user, signOut } = useAuthContext();
+  const { userData, signOut } = useAuthContext();
 
   return (
     <Styled.Container modalIsOpen={modalIsOpen}>
@@ -22,16 +22,16 @@ function Modal({ modalIsOpen, closeModal }: Props) {
       </Styled.Header>
       <Styled.ModalBody>
         <Styled.UserInfo>
-          {!user && "Carregando..."}
-          {user && (
+          {!userData && "Carregando..."}
+          {userData && (
             <>
-              <img src={user.profileImg} alt="" />
-              <p>{user.name}</p>
+              <img src={userData.user.profileImg} alt={userData.user.name} />
+              <p>{userData.user.name}</p>
             </>
           )}
         </Styled.UserInfo>
-        <Link href={"/my-profile"} onClick={closeModal}>
-          Meu Perfil
+        <Link href={"/deck/add-cards"} onClick={closeModal}>
+          Adicionar Cartas a um Baralho
         </Link>
         <Link href={"/"} onClick={closeModal}>
           Meus Baralhos

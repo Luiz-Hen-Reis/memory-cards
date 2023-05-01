@@ -1,7 +1,6 @@
 import Link from "next/link";
 import * as Styled from "./styles";
 import { useState } from "react";
-import { useRouter } from "next/router";
 import dynamic from "next/dynamic";
 import { useAuthContext } from "@/contexts/AuthContext";
 
@@ -11,7 +10,7 @@ function Header() {
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [dropDownOn, setDropDownOn] = useState(false);
 
-  const { user, signOut } = useAuthContext();
+  const { userData, signOut } = useAuthContext();
 
   function closeModal() {
     setModalIsOpen(false);
@@ -25,15 +24,14 @@ function Header() {
       <Styled.UserInfo>
         <Link href={"/deck/add-cards"}>Adicionar Cartas a um Baralho</Link>
         <Link href={"/"}>Meus Baralhos</Link>
-        {!user && "Carregando..."}
-        {user && (
+        {!userData && "Carregando..."}
+        {userData && (
           <div onClick={() => setDropDownOn(!dropDownOn)}>
-            <img src={user?.profileImg} alt="" />
-            <p>{user?.name}</p>
+            <img src={userData?.user.profileImg} alt="" />
+            <p>{userData?.user.name}</p>
             <span></span>
             {dropDownOn && (
               <Styled.DropDownMenu>
-                <Link href={"/my-profile"}>Meu Perfil</Link>
                 <button onClick={signOut}>
                   Sair
                 </button>

@@ -1,3 +1,7 @@
+export type UserData = {
+  user: User;
+};
+
 export type User = {
   id: number;
   name: string;

@@ -154,7 +154,7 @@ export const UserInfo = styled.nav`
 export const DropDownMenu = styled.nav`
   ${({ theme }) => css`
     position: absolute;
-    bottom: -4rem;
+    bottom: -1rem;
     right: 0;
     display: flex;
     flex-direction: column;

@@ -9,6 +9,7 @@ import { toast } from "react-toastify";
 import { parseCookies } from "nookies";
 import { recoverUserInformation } from "@/libs/auth";
 import axios from "axios";
+import { UserData } from "@/types/UserInfo";
 
 type Props = {
   currentDeck: DeckType;
@@ -110,7 +111,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     };
   }
 
-  const user = await recoverUserInformation(token);
+  const userData: UserData = await recoverUserInformation(token);
   
   return {
     props: {

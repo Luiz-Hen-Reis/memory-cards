@@ -8,18 +8,18 @@ type Props = {
 };
 
 function GridItem({ deck }: Props) {
-  const { user } = useAuthContext();
+  const { userData } = useAuthContext();
 
   return (
     <Styled.Container>
       <Link href={`/deck/${deck.id}`}>
         <Styled.DeckTitle>
           <h1>{deck.title}</h1>
-          <p>0 termos</p>
+          <p>{deck.cards.length} termos</p>
         </Styled.DeckTitle>
         <Styled.DeckUser>
-          <img src={user?.profileImg} alt={user?.name} />
-          <span>{user?.name}</span>
+          <img src={userData?.user.profileImg} alt={userData?.user.name} />
+          <span>{userData?.user.name}</span>
         </Styled.DeckUser>
       </Link>
     </Styled.Container>
