@@ -31,7 +31,7 @@ function Index({ userData }: Props) {
 
 export default Index;
 
-const Title = styled.h1`
+export const Title = styled.h1`
   ${({ theme }) => css`
   text-align: center;
   color: ${theme.colors.columbiaBlue};

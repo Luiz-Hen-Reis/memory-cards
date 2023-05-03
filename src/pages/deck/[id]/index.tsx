@@ -10,6 +10,8 @@ import { parseCookies } from "nookies";
 import { recoverUserInformation } from "@/libs/auth";
 import { Card, DeckData, UserData } from "@/types/UserInfo";
 import { theme } from "@/styles/theme";
+import { Title } from '../../index';
+import Link from "next/link";
 
 type Props = {
   currentDeck: DeckData;
@@ -29,8 +31,8 @@ function Deck({ currentDeck }: Props) {
   const nextCardBtn = useRef<HTMLButtonElement>(null);
 
   useEffect(() => {
-    setCurrentCard(currentDeck.deck.cards[index]);
-
+    if (currentDeck.deck.cards.length >= 1) {
+      setCurrentCard(currentDeck.deck.cards[index]);
 
       if (cardIsTurned) {
         cardFrontEl.current!.style.transform = "rotateY(-100deg)";
@@ -43,7 +45,7 @@ function Deck({ currentDeck }: Props) {
         cardBackEl.current!.style.color = `${theme.colors.ultraViolet}`;
         nextCardBtn.current!.setAttribute("disabled", "");
       }
-    
+    }
   }, [cardIsTurned]);
 
   function turnCard() {
@@ -90,7 +92,7 @@ function Deck({ currentDeck }: Props) {
           </>
         )}
 
-        {!currentCard && <p>opa</p>}
+        {!currentCard && <Title>Você ainda não possuí nenhuma carta neste baralho. <Link href={'/deck/add-cards'}>Criar Nova Carta?</Link></Title>}
       </Styled.Container>
     </>
   );
