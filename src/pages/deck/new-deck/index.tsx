@@ -11,27 +11,26 @@ import { recoverUserInformation } from "@/libs/auth";
 
 function NewDeck() {
   const { register, handleSubmit, setValue } = useForm();
-  const { user: userData } = useAuthContext();
+  const { user } = useAuthContext();
 
   const onSubmit = handleSubmit(async ({ title }) => {
     try {
       const response = await axios.post(
-        `/api/auth/user/${userData?.user.id}/create-deck`,
+        `/api/auth/user/${user?.id}/create-deck`,
         { title }
       );
 
+      window.location.href = '/';
+
       if (response.status === 201) {
         toast.success(`${title} criado com sucesso!`);
-        Router.push("/");
         setValue("title", "");
       } else {
         throw new Error();
       }
     } catch (error) {
       setValue("title", "");
-      toast.error(
-        `Um baralho com o título ${title} já existe. Tente outro título`
-      );
+      console.log(error);
     }
   });
 
@@ -80,4 +79,3 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
     },
   };
 };
-

@@ -10,7 +10,7 @@ type Props = {
 
 function Modal({ modalIsOpen, closeModal }: Props) {
   const router = useRouter();
-  const { user: userData, signOut } = useAuthContext();
+  const { user, signOut } = useAuthContext();
 
   return (
     <Styled.Container modalIsOpen={modalIsOpen}>
@@ -22,11 +22,11 @@ function Modal({ modalIsOpen, closeModal }: Props) {
       </Styled.Header>
       <Styled.ModalBody>
         <Styled.UserInfo>
-          {!userData && "Carregando..."}
-          {userData && (
+          {!user && "Carregando..."}
+          {user && (
             <>
-              <img src={userData.user.profileImg} alt={userData.user.name} />
-              <p>{userData.user.name}</p>
+              <img src={user.profileImg} alt={user.name} />
+              <p>{user.name}</p>
             </>
           )}
         </Styled.UserInfo>
