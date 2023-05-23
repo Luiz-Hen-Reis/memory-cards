@@ -53,3 +53,5 @@ export const FormContainer = styled.form`
     }
   `}
 `;
+
+export default {};

@@ -1,6 +1,6 @@
 import styled, { css } from "styled-components";
 
-export const Container = styled.form`
+ const Container = styled.form`
   ${({ theme }) => css`
     display: flex;
     flex-flow: column nowrap;
@@ -34,3 +34,5 @@ export const Container = styled.form`
     }
   `}
 `;
+
+export default Container;

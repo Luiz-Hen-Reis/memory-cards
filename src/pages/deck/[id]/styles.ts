@@ -83,3 +83,5 @@ export const BtnContainer = styled.div`
     }
   `}
 `;
+
+export default {};
