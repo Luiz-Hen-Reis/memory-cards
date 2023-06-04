@@ -13,8 +13,6 @@ import styled, { css } from "styled-components";
 import { recoverUserInformation } from "@/libs/auth";
 import { useRouter } from "next/router";
 
-const baseUrl = process.env.NEXT_PUBLIC_VERCEL_URL;
-
 type Props = {
   currentDeck: DeckData;
 };
@@ -112,7 +110,7 @@ interface IParams extends ParsedUrlQuery {
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const { id } = context.params as IParams;
 
-  const res = await axios.get(`${baseUrl}/api/auth/user/deck/${id}`);
+  const res = await axios.get(`/api/auth/user/deck/${id}`);
   const currentDeck: DeckData = res.data;
 
   const { "nextmemorycard.token": token } = parseCookies(context);

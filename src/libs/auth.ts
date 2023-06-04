@@ -1,8 +1,6 @@
 import axios from 'axios';
 import jwt_decode from 'jwt-decode';
 
-  const baseUrl = process.env.NEXT_PUBLIC_VERCEL_URL;
-
 interface JwtData {
   id: number;
 }
@@ -26,7 +24,7 @@ export async function signInRequest({ email, password }: SignInRequestData) {
 export async function recoverUserInformation(token: string) {
   const decoded: JwtData = jwt_decode(token);
   const userId = decoded.id;
-  const response = await axios.get(`${baseUrl}/api/auth/user/${userId}`);
+  const response = await axios.get(`/api/auth/user/${userId}`);
   
   return response.data;
 }
