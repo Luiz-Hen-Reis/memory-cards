@@ -12,6 +12,7 @@ type Props = {
 };
 
 function Index({ userData }: Props) {
+
   return (
     <>
       <Head>
