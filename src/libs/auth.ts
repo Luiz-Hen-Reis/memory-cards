@@ -24,7 +24,7 @@ export async function signInRequest({ email, password }: SignInRequestData) {
 export async function recoverUserInformation(token: string) {
   const decoded: JwtData = jwt_decode(token);
   const userId = decoded.id;
-  const response = await axios.get(`/api/auth/user/${userId}`);
+  const response = await axios.get(`api/auth/user/${userId}`);
   
   return response.data;
 }
